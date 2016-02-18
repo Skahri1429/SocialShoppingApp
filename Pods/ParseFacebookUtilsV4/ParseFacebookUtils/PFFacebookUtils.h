@@ -77,7 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param block       The block to execute when the log in completes.
  It should have the following signature: `^(PFUser *user, NSError *error)`.
  */
-+ (void)logInInBackgroundWithReadPermissions:(nullable NSArray *PF_GENERIC(NSString *)*)permissions
++ (void)logInInBackgroundWithReadPermissions:(nullable NSArray PF_GENERIC(NSString *)*)permissions
                                        block:(nullable PFUserResultBlock)block;
 
 /*!

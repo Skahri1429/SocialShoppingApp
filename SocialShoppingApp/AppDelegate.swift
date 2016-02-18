@@ -22,14 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         do {
             try PFUser.logInWithUsername("test", password: "test")
+            print("test login successful")
         } catch {
             print("test login failed")
-        }
-        
-        if let currentUser = PFUser.currentUser() {
-            print("\(currentUser.username!) logged in successfully")
-        } else {
-            print("No logged in user :(")
         }
         
         return true

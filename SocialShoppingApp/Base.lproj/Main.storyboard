@@ -1,65 +1,117 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="1Pb-OZ-tMY">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <scenes>
-        <!--Item 2-->
-        <scene sceneID="wgI-9c-a5h">
+        <!--Settings View Controller-->
+        <scene sceneID="HVc-9Y-jRv">
             <objects>
-                <viewController id="KSi-TY-wES" sceneMemberID="viewController">
+                <viewController id="gFY-6U-xTy" customClass="SettingsViewController" customModule="SocialShoppingApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="hMl-JO-YRt"/>
-                        <viewControllerLayoutGuide type="bottom" id="bx3-7C-SbU"/>
+                        <viewControllerLayoutGuide type="top" id="3pt-Cu-zLk"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ek7-50-2h3"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="ihY-ht-kzw">
+                    <view key="view" contentMode="scaleToFill" id="lvM-ND-ztj">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="kXq-Al-JQH"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Djc-hz-HCN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SNp-Kn-IA9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="628" y="431"/>
+            <point key="canvasLocation" x="306" y="-548"/>
         </scene>
-        <!--Item 1-->
-        <scene sceneID="KfQ-up-v58">
+        <!--Map View Controller-->
+        <scene sceneID="WYx-hd-6fi">
             <objects>
-                <viewController id="9oo-cK-nHH" sceneMemberID="viewController">
+                <viewController id="1Pb-OZ-tMY" customClass="MapViewController" customModule="SocialShoppingApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="WwC-YI-9qd"/>
-                        <viewControllerLayoutGuide type="bottom" id="FnD-2u-yuh"/>
+                        <viewControllerLayoutGuide type="top" id="uCD-hN-uRq"/>
+                        <viewControllerLayoutGuide type="bottom" id="VFj-HT-HdT"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="M1p-M8-wr7">
+                    <view key="view" contentMode="scaleToFill" id="d7h-Te-0ci">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2re-0H-9uK">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="App Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bn3-lj-7cw">
+                                        <rect key="frame" x="200" y="8" width="201" height="48"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="40"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iVB-li-hGW">
+                                        <rect key="frame" x="8" y="17" width="46" height="30"/>
+                                        <state key="normal" title="Profile"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y9d-kU-jRW">
+                                        <rect key="frame" x="527" y="17" width="65" height="30"/>
+                                        <state key="normal" title="Settings"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.20392156862745098" green="0.28627450980392155" blue="0.36862745098039218" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Trx-3l-i8T">
+                                <rect key="frame" x="0.0" y="62" width="600" height="538"/>
+                            </mapView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QDY-q7-RqP">
+                                <rect key="frame" x="252" y="91" width="97" height="30"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jac-el-kIg">
+                                <rect key="frame" x="277" y="545" width="46" height="30"/>
+                                <state key="normal" title="Begin"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DRd-4v-JuG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="306" y="133"/>
+        </scene>
+        <!--User Profile View Controller-->
+        <scene sceneID="aWf-Oe-MZY">
+            <objects>
+                <viewController id="nEc-Q8-fTX" customClass="UserProfileViewController" customModule="SocialShoppingApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="MmT-5v-7zr"/>
+                        <viewControllerLayoutGuide type="bottom" id="8xV-AV-spb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6Wz-yZ-sra">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 1" id="sSt-62-txE"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="luH-Qq-lS8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mxl-bp-ZOJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="628" y="-229"/>
+            <point key="canvasLocation" x="306" y="811"/>
         </scene>
-        <!--Tab Bar Controller-->
-        <scene sceneID="XAQ-Hs-DXN">
+        <!--Shopping List Modal View Controller-->
+        <scene sceneID="RRp-pC-OZ5">
             <objects>
-                <tabBarController id="Jof-za-RJx" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="D5g-V7-ZHd">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="9oo-cK-nHH" kind="relationship" relationship="viewControllers" id="H4P-o5-dgY"/>
-                        <segue destination="KSi-TY-wES" kind="relationship" relationship="viewControllers" id="7aX-tu-8vr"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vAt-iH-fCX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="n1c-uK-jw8" customClass="ShoppingListModalViewController" customModule="SocialShoppingApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="82u-uK-BnZ"/>
+                        <viewControllerLayoutGuide type="bottom" id="WJl-3z-f1q"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2o7-IJ-ih9">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ii4-3n-1cl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-192" y="99"/>
+            <point key="canvasLocation" x="978" y="133"/>
         </scene>
     </scenes>
 </document>
