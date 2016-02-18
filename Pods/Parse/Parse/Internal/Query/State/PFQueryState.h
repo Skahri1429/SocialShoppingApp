@@ -30,7 +30,7 @@
 @property (nonatomic, assign, readonly) NSInteger skip;
 
 ///--------------------------------------
-#pragma mark - Remote + Caching Options
+/// @name Remote + Caching Options
 ///--------------------------------------
 
 @property (nonatomic, assign, readonly) PFCachePolicy cachePolicy;
@@ -39,7 +39,7 @@
 @property (nonatomic, assign, readonly) BOOL trace;
 
 ///--------------------------------------
-#pragma mark - Local Datastore Options
+/// @name Local Datastore Options
 ///--------------------------------------
 
 /**
@@ -56,7 +56,7 @@
 @property (nonatomic, copy, readonly) NSString *localDatastorePinName;
 
 ///--------------------------------------
-#pragma mark - Init
+/// @name Init
 ///--------------------------------------
 
 - (instancetype)initWithState:(PFQueryState *)state;

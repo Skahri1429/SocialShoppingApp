@@ -22,7 +22,7 @@ PF_WATCH_UNAVAILABLE_WARNING
 extern NSString *const PFCurrentInstallationFileName;
 extern NSString *const PFCurrentInstallationPinName;
 
-@class BFTask<__covariant BFGenericType>;
+@class BFTask PF_GENERIC(__covariant BFGenericType);
 @class PFInstallation;
 
 PF_TV_UNAVAILABLE PF_WATCH_UNAVAILABLE @interface PFCurrentInstallationController : NSObject <PFCurrentObjectControlling>
@@ -31,7 +31,7 @@ PF_TV_UNAVAILABLE PF_WATCH_UNAVAILABLE @interface PFCurrentInstallationControlle
 @property (nonatomic, weak, readonly) id<PFObjectFilePersistenceControllerProvider> coreDataSource;
 
 ///--------------------------------------
-#pragma mark - Init
+/// @name Init
 ///--------------------------------------
 
 - (instancetype)init NS_UNAVAILABLE;
@@ -44,7 +44,7 @@ PF_TV_UNAVAILABLE PF_WATCH_UNAVAILABLE @interface PFCurrentInstallationControlle
                            coreDataSource:(id<PFObjectFilePersistenceControllerProvider>)coreDataSource;
 
 ///--------------------------------------
-#pragma mark - Installation
+/// @name Installation
 ///--------------------------------------
 
 @property (nonatomic, strong, readonly) PFInstallation *memoryCachedCurrentInstallation;

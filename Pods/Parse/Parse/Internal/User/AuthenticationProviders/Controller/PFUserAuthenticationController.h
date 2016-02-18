@@ -16,24 +16,25 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class BFTask<__covariant BFGenericType>;
+@class BFTask PF_GENERIC(__covariant BFGenericType);
 @class PFUser;
 
 @interface PFUserAuthenticationController : NSObject
 
-@property (nonatomic, weak, readonly) id<PFCurrentUserControllerProvider, PFUserControllerProvider> dataSource;
+@property (nonatomic, weak, readonly) id<PFCurrentUserControllerProvider> dataSource;
 
 ///--------------------------------------
-#pragma mark - Init
+/// @name Init
 ///--------------------------------------
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
 
-+ (instancetype)controllerWithDataSource:(id<PFCurrentUserControllerProvider, PFUserControllerProvider>)dataSource;
+- (instancetype)initWithDataSource:(id<PFCurrentUserControllerProvider>)dataSource;
++ (instancetype)controllerWithDataSource:(id<PFCurrentUserControllerProvider>)dataSource;
 
 ///--------------------------------------
-#pragma mark - Authentication Providers
+/// @name Authentication Providers
 ///--------------------------------------
 
 - (void)registerAuthenticationDelegate:(id<PFUserAuthenticationDelegate>)delegate forAuthType:(NSString *)authType;
@@ -42,19 +43,18 @@ NS_ASSUME_NONNULL_BEGIN
 - (id<PFUserAuthenticationDelegate>)authenticationDelegateForAuthType:(NSString *)authType;
 
 ///--------------------------------------
-#pragma mark - Authentication
+/// @name Authentication
 ///--------------------------------------
 
-- (BFTask<NSNumber *> *)restoreAuthenticationAsyncWithAuthData:(nullable NSDictionary<NSString *, NSString *> *)authData
-                                                   forAuthType:(NSString *)authType;
-- (BFTask<NSNumber *> *)deauthenticateAsyncWithAuthType:(NSString *)authType;
+- (BFTask PF_GENERIC(NSNumber *) *)restoreAuthenticationAsyncWithAuthData:(nullable NSDictionary *)authData
+                                                              forAuthType:(NSString *)authType;
+- (BFTask PF_GENERIC(NSNumber *) *)deauthenticateAsyncWithAuthType:(NSString *)authType;
 
 ///--------------------------------------
-#pragma mark - Log In
+/// @name Log In
 ///--------------------------------------
 
-- (BFTask<PFUser *> *)logInUserAsyncWithAuthType:(NSString *)authType
-                                        authData:(NSDictionary<NSString *, NSString *> *)authData;
+- (BFTask *)logInUserAsyncWithAuthType:(NSString *)authType authData:(NSDictionary *)authData;
 
 @end
 

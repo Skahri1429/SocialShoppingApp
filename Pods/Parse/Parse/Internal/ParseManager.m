@@ -33,7 +33,7 @@
 #import "PFInstallation.h"
 #endif
 
-#if TARGET_OS_IOS || TARGET_OS_TV
+#if TARGET_OS_IOS
 #import "PFPurchaseController.h"
 #import "PFProduct.h"
 #endif
@@ -78,7 +78,7 @@ static NSString *const _ParseApplicationIdFileName = @"applicationId";
 #if !TARGET_OS_WATCH && !TARGET_OS_TV
 @synthesize pushManager = _pushManager;
 #endif
-#if TARGET_OS_IOS || TARGET_OS_TV
+#if TARGET_OS_IOS
 @synthesize purchaseController = _purchaseController;
 #endif
 
@@ -86,7 +86,11 @@ static NSString *const _ParseApplicationIdFileName = @"applicationId";
 #pragma mark - Init
 ///--------------------------------------
 
-- (instancetype)initWithConfiguration:(ParseClientConfiguration *)configuration {
+- (instancetype)init {
+    PFNotDesignatedInitializer();
+}
+
+- (instancetype)initWithApplicationId:(NSString *)applicationId clientKey:(NSString *)clientKey {
     self = [super init];
     if (!self) return nil;
 
@@ -104,20 +108,26 @@ static NSString *const _ParseApplicationIdFileName = @"applicationId";
     _controllerAccessQueue = dispatch_queue_create("com.parse.controller.access", DISPATCH_QUEUE_SERIAL);
     _preloadQueue = dispatch_queue_create("com.parse.preload", DISPATCH_QUEUE_SERIAL);
 
-    _configuration = [configuration copy];
+    _applicationId = [applicationId copy];
+    _clientKey = [clientKey copy];
 
     return self;
 }
 
-- (void)startManaging {
+- (void)configureWithApplicationGroupIdentifier:(NSString *)applicationGroupIdentifier
+                containingApplicationIdentifier:(NSString *)containingApplicationIdentifier
+                          enabledLocalDataStore:(BOOL)localDataStoreEnabled {
+    _applicationGroupIdentifier = [applicationGroupIdentifier copy];
+    _containingApplicationIdentifier = [containingApplicationIdentifier copy];
+
     // Migrate any data if it's required.
     [self _migrateSandboxDataToApplicationGroupContainerIfNeeded];
 
     // TODO: (nlutsenko) Make it not terrible!
     [[self.persistenceController getPersistenceGroupAsync] waitForResult:nil withMainThreadWarning:NO];
 
-    if (self.configuration.localDatastoreEnabled) {
-        PFOfflineStoreOptions options = (self.configuration.applicationGroupIdentifier ?
+    if (localDataStoreEnabled) {
+        PFOfflineStoreOptions options = (_applicationGroupIdentifier ?
                                          PFOfflineStoreOptionAlwaysFetchFromSQLite : 0);
         [self loadOfflineStoreWithOptions:options];
     }
@@ -128,8 +138,8 @@ static NSString *const _ParseApplicationIdFileName = @"applicationId";
 ///--------------------------------------
 
 - (void)loadOfflineStoreWithOptions:(PFOfflineStoreOptions)options {
+    PFConsistencyAssert(!_offlineStore, @"Can't load offline store more than once.");
     dispatch_barrier_sync(_offlineStoreAccessQueue, ^{
-        PFConsistencyAssert(!_offlineStore, @"Can't load offline store more than once.");
         _offlineStore = [[PFOfflineStore alloc] initWithFileManager:self.fileManager options:options];
     });
 }
@@ -149,7 +159,7 @@ static NSString *const _ParseApplicationIdFileName = @"applicationId";
 }
 
 - (BOOL)isOfflineStoreLoaded {
-    return self.configuration.localDatastoreEnabled;
+    return (self.offlineStore != nil);
 }
 
 ///--------------------------------------
@@ -161,16 +171,18 @@ static NSString *const _ParseApplicationIdFileName = @"applicationId";
     dispatch_sync(_eventuallyQueueAccessQueue, ^{
 #if TARGET_OS_TV
         if (!_eventuallyQueue) {
-            _eventuallyQueue = [PFMemoryEventuallyQueue newDefaultMemoryEventuallyQueueWithDataSource:self];
+            _eventuallyQueue = [PFMemoryEventuallyQueue newDefaultMemoryEventuallyQueueWithCommandRunner:self.commandRunner];
         }
 #else
         if (!_eventuallyQueue ||
             (self.offlineStoreLoaded && [_eventuallyQueue isKindOfClass:[PFCommandCache class]]) ||
             (!self.offlineStoreLoaded && [_eventuallyQueue isKindOfClass:[PFPinningEventuallyQueue class]])) {
 
+            id<PFCommandRunning> commandRunner = self.commandRunner;
+
             PFCommandCache *commandCache = [self _newCommandCache];
             _eventuallyQueue = (self.offlineStoreLoaded ?
-                                [PFPinningEventuallyQueue newDefaultPinningEventuallyQueueWithDataSource:self]
+                                [PFPinningEventuallyQueue newDefaultPinningEventuallyQueueWithCommandRunner:commandRunner]
                                 :
                                 commandCache);
 
@@ -193,7 +205,7 @@ static NSString *const _ParseApplicationIdFileName = @"applicationId";
     // It falls under the category of "offline data".
     // See https://developer.apple.com/library/ios/#qa/qa1699/_index.html
     NSString *folderPath = [self.fileManager parseDefaultDataDirectoryPath];
-    return [PFCommandCache newDefaultCommandCacheWithCommonDataSource:self coreDataSource:self.coreManager cacheFolderPath:folderPath];
+    return [PFCommandCache newDefaultCommandCacheWithCommandRunner:self.commandRunner cacheFolderPath:folderPath];
 }
 
 - (void)clearEventuallyQueue {
@@ -216,7 +228,7 @@ static NSString *const _ParseApplicationIdFileName = @"applicationId";
     __block PFKeychainStore *store = nil;
     dispatch_sync(_keychainStoreAccessQueue, ^{
         if (!_keychainStore) {
-            NSString *bundleIdentifier = (self.configuration.containingApplicationBundleIdentifier ?: [NSBundle mainBundle].bundleIdentifier);
+            NSString *bundleIdentifier = (_containingApplicationIdentifier ?: [[NSBundle mainBundle] bundleIdentifier]);
             NSString *service = [NSString stringWithFormat:@"%@.%@", bundleIdentifier, PFKeychainStoreDefaultService];
             _keychainStore = [[PFKeychainStore alloc] initWithService:service];
         }
@@ -231,8 +243,8 @@ static NSString *const _ParseApplicationIdFileName = @"applicationId";
     __block PFFileManager *fileManager = nil;
     dispatch_sync(_fileManagerAccessQueue, ^{
         if (!_fileManager) {
-            _fileManager = [[PFFileManager alloc] initWithApplicationIdentifier:self.configuration.applicationId
-                                                     applicationGroupIdentifier:self.configuration.applicationGroupIdentifier];
+            _fileManager = [[PFFileManager alloc] initWithApplicationIdentifier:self.applicationId
+                                                     applicationGroupIdentifier:self.applicationGroupIdentifier];
         }
         fileManager = _fileManager;
     });
@@ -268,7 +280,7 @@ static NSString *const _ParseApplicationIdFileName = @"applicationId";
             return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         }] continueWithSuccessBlock:^id(BFTask *task) {
             if (task.result) {
-                if ([self.configuration.applicationId isEqualToString:task.result]) {
+                if ([self.applicationId isEqualToString:task.result]) {
                     // Everything is valid, no need to remove, set applicationId here.
                     return nil;
                 }
@@ -277,15 +289,15 @@ static NSString *const _ParseApplicationIdFileName = @"applicationId";
                 [self.keyValueCache removeAllObjects];
             }
             return [[group removeAllDataAsync] continueWithSuccessBlock:^id(BFTask *task) {
-                NSData *applicationIdData = [self.configuration.applicationId dataUsingEncoding:NSUTF8StringEncoding];
+                NSData *applicationIdData = [self.applicationId dataUsingEncoding:NSUTF8StringEncoding];
                 return [group setDataAsync:applicationIdData forKey:_ParseApplicationIdFileName];
             }];
         }] continueWithBlock:^id(BFTask *task) {
             return [group endLockedContentAccessAsyncToDataForKey:_ParseApplicationIdFileName];
         }];
     };
-    return [[PFPersistenceController alloc] initWithApplicationIdentifier:self.configuration.applicationId
-                                               applicationGroupIdentifier:self.configuration.applicationGroupIdentifier
+    return [[PFPersistenceController alloc] initWithApplicationIdentifier:self.applicationId
+                                               applicationGroupIdentifier:self.applicationGroupIdentifier
                                                    groupValidationHandler:validationHandler];
 }
 
@@ -309,10 +321,8 @@ static NSString *const _ParseApplicationIdFileName = @"applicationId";
     dispatch_sync(_commandRunnerAccessQueue, ^{
         if (!_commandRunner) {
             _commandRunner = [PFURLSessionCommandRunner commandRunnerWithDataSource:self
-                                                                      retryAttempts:self.configuration.networkRetryAttempts
-                                                                      applicationId:self.configuration.applicationId
-                                                                          clientKey:self.configuration.clientKey
-                                                                          serverURL:[NSURL URLWithString:self.configuration.server]];
+                                                                      applicationId:self.applicationId
+                                                                          clientKey:self.clientKey];
         }
         runner = _commandRunner;
     });
@@ -396,7 +406,7 @@ static NSString *const _ParseApplicationIdFileName = @"applicationId";
     });
 }
 
-#if TARGET_OS_IOS || TARGET_OS_TV
+#if TARGET_OS_IOS
 
 #pragma mark PurchaseController
 
@@ -447,14 +457,14 @@ static NSString *const _ParseApplicationIdFileName = @"applicationId";
     // There is no need to migrate anything on OSX, since we are using globally available folder.
 #if TARGET_OS_IOS
     // Do nothing if there is no application group container or containing application is specified.
-    if (!self.configuration.applicationGroupIdentifier || self.configuration.containingApplicationBundleIdentifier) {
+    if (!self.applicationGroupIdentifier || self.containingApplicationIdentifier) {
         return;
     }
 
     NSString *localSandboxDataPath = [self.fileManager parseLocalSandboxDataDirectoryPath];
     NSString *dataPath = [self.fileManager parseDefaultDataDirectoryPath];
     NSArray *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:localSandboxDataPath error:nil];
-    if (contents.count != 0) {
+    if ([contents count] != 0) {
         // If moving files fails - just log the error, but don't fail.
         NSError *error = nil;
         [[PFFileManager moveContentsOfDirectoryAsyncAtPath:localSandboxDataPath

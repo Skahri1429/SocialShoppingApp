@@ -12,7 +12,7 @@
 @protocol PFNetworkCommand <NSObject>
 
 ///--------------------------------------
-#pragma mark - Properties
+/// @name Properties
 ///--------------------------------------
 
 @property (nonatomic, copy, readonly) NSString *sessionToken;
@@ -23,7 +23,7 @@
 @property (nonatomic, copy) NSString *localId;
 
 ///--------------------------------------
-#pragma mark - Encoding/Decoding
+/// @name Encoding/Decoding
 ///--------------------------------------
 
 + (instancetype)commandFromDictionaryRepresentation:(NSDictionary *)dictionary;
@@ -32,7 +32,7 @@
 + (BOOL)isValidDictionaryRepresentation:(NSDictionary *)dictionary;
 
 ///--------------------------------------
-#pragma mark - Local Identifiers
+/// @name Local Identifiers
 ///--------------------------------------
 
 /**

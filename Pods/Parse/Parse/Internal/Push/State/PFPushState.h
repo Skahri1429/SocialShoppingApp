@@ -32,7 +32,7 @@ PF_TV_UNAVAILABLE PF_WATCH_UNAVAILABLE @interface PFPushState : PFBaseState <NSC
 @property (nullable, nonatomic, copy, readonly) NSDictionary *payload;
 
 ///--------------------------------------
-#pragma mark - Init
+/// @name Init
 ///--------------------------------------
 
 - (instancetype)initWithState:(nullable PFPushState *)state;

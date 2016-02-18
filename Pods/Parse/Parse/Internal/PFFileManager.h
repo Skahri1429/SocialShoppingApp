@@ -14,7 +14,7 @@
 #import "PFMacros.h"
 
 @class BFExecutor;
-@class BFTask<__covariant BFGenericType>;
+@class BFTask PF_GENERIC(__covariant BFGenericType);
 
 typedef NS_OPTIONS(uint8_t, PFFileManagerOptions) {
     PFFileManagerOptionSkipBackup = 1 << 0,
@@ -23,7 +23,7 @@ typedef NS_OPTIONS(uint8_t, PFFileManagerOptions) {
 @interface PFFileManager : NSObject
 
 ///--------------------------------------
-#pragma mark - Class
+/// @name Class
 ///--------------------------------------
 
 + (BOOL)isApplicationGroupContainerReachableForGroupIdentifier:(NSString *)applicationGroup;
@@ -48,12 +48,10 @@ typedef NS_OPTIONS(uint8_t, PFFileManagerOptions) {
 + (BFTask *)removeDirectoryContentsAsyncAtPath:(NSString *)path;
 
 ///--------------------------------------
-#pragma mark - Instance
+/// @name Instance
 ///--------------------------------------
 
 - (instancetype)init NS_UNAVAILABLE;
-+ (instancetype)new NS_UNAVAILABLE;
-
 - (instancetype)initWithApplicationIdentifier:(NSString *)applicationIdentifier
                    applicationGroupIdentifier:(NSString *)applicationGroupIdentifier NS_DESIGNATED_INITIALIZER;
 

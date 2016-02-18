@@ -13,39 +13,37 @@
 
 #import "PFDataProvider.h"
 
-@class BFTask<__covariant BFGenericType>;
+@class BFTask PF_GENERIC(BFGenericType);
 @class PFRESTCommand;
 
 @interface PFCommandURLRequestConstructor : NSObject
 
 @property (nonatomic, weak, readonly) id<PFInstallationIdentifierStoreProvider> dataSource;
-@property (nonatomic, strong, readonly) NSURL *serverURL;
 
 ///--------------------------------------
-#pragma mark - Init
+/// @name Init
 ///--------------------------------------
 
 - (instancetype)init NS_UNAVAILABLE;
-+ (instancetype)new NS_UNAVAILABLE;
-
-+ (instancetype)constructorWithDataSource:(id<PFInstallationIdentifierStoreProvider>)dataSource serverURL:(NSURL *)serverURL;
-
-///--------------------------------------
-#pragma mark - Data
-///--------------------------------------
-
-- (BFTask<NSURLRequest *> *)getDataURLRequestAsyncForCommand:(PFRESTCommand *)command;
+- (instancetype)initWithDataSource:(id<PFInstallationIdentifierStoreProvider>)dataSource NS_DESIGNATED_INITIALIZER;
++ (instancetype)constructorWithDataSource:(id<PFInstallationIdentifierStoreProvider>)dataSource;
 
 ///--------------------------------------
-#pragma mark - File Upload
+/// @name Data
 ///--------------------------------------
 
-- (BFTask<NSURLRequest *> *)getFileUploadURLRequestAsyncForCommand:(PFRESTCommand *)command
-                                                   withContentType:(NSString *)contentType
-                                             contentSourceFilePath:(NSString *)contentFilePath;
+- (BFTask PF_GENERIC(NSURLRequest *)*)getDataURLRequestAsyncForCommand:(PFRESTCommand *)command;
 
 ///--------------------------------------
-#pragma mark - Headers
+/// @name File Upload
+///--------------------------------------
+
+- (BFTask PF_GENERIC(NSURLRequest *)*)getFileUploadURLRequestAsyncForCommand:(PFRESTCommand *)command
+                                                             withContentType:(NSString *)contentType
+                                                       contentSourceFilePath:(NSString *)contentFilePath;
+
+///--------------------------------------
+/// @name Headers
 ///--------------------------------------
 
 + (NSDictionary *)defaultURLRequestHeadersForApplicationId:(NSString *)applicationId

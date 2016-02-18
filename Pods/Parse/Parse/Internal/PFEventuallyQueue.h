@@ -14,18 +14,18 @@
 #import "PFMacros.h"
 #import "PFNetworkCommand.h"
 
-@class BFTask<__covariant BFGenericType>;
+@class BFTask PF_GENERIC(__covariant BFGenericType);
 @class PFEventuallyPin;
 @class PFEventuallyQueueTestHelper;
 @class PFObject;
-@protocol PFCommandRunnerProvider;
+@protocol PFCommandRunning;
 
 extern NSUInteger const PFEventuallyQueueDefaultMaxAttemptsCount;
 extern NSTimeInterval const PFEventuallyQueueDefaultTimeoutRetryInterval;
 
 @interface PFEventuallyQueue : NSObject
 
-@property (nonatomic, weak, readonly) id<PFCommandRunnerProvider> dataSource;
+@property (nonatomic, strong, readonly) id<PFCommandRunning> commandRunner;
 
 @property (nonatomic, assign, readonly) NSUInteger maxAttemptsCount;
 @property (nonatomic, assign, readonly) NSTimeInterval retryInterval;
@@ -43,25 +43,23 @@ extern NSTimeInterval const PFEventuallyQueueDefaultTimeoutRetryInterval;
 @property (nonatomic, strong, readonly) PFEventuallyQueueTestHelper *testHelper;
 
 ///--------------------------------------
-#pragma mark - Init
+/// @name Init
 ///--------------------------------------
 
 - (instancetype)init NS_UNAVAILABLE;
-+ (instancetype)new NS_UNAVAILABLE;
-
-- (instancetype)initWithDataSource:(id<PFCommandRunnerProvider>)dataSource
-                  maxAttemptsCount:(NSUInteger)attemptsCount
-                     retryInterval:(NSTimeInterval)retryInterval NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithCommandRunner:(id<PFCommandRunning>)commandRunner
+                     maxAttemptsCount:(NSUInteger)attemptsCount
+                        retryInterval:(NSTimeInterval)retryInterval NS_DESIGNATED_INITIALIZER;
 
 ///--------------------------------------
-#pragma mark - Running Commands
+/// @name Running Commands
 ///--------------------------------------
 
 - (BFTask *)enqueueCommandInBackground:(id<PFNetworkCommand>)command;
 - (BFTask *)enqueueCommandInBackground:(id<PFNetworkCommand>)command withObject:(PFObject *)object;
 
 ///--------------------------------------
-#pragma mark - Controlling Queue
+/// @name Controlling Queue
 ///--------------------------------------
 
 - (void)start NS_REQUIRES_SUPER;

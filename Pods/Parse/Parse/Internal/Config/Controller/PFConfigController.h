@@ -13,7 +13,7 @@
 
 #import "PFDataProvider.h"
 
-@class BFTask<__covariant BFGenericType>;
+@class BFTask PF_GENERIC(__covariant BFGenericType);
 @class PFConfig;
 @class PFCurrentConfigController;
 
@@ -24,16 +24,14 @@
 @property (nonatomic, strong, readonly) PFCurrentConfigController *currentConfigController;
 
 ///--------------------------------------
-#pragma mark - Init
+/// @name Init
 ///--------------------------------------
 
 - (instancetype)init NS_UNAVAILABLE;
-+ (instancetype)new NS_UNAVAILABLE;
-
 - (instancetype)initWithDataSource:(id<PFPersistenceControllerProvider, PFCommandRunnerProvider>)dataSource NS_DESIGNATED_INITIALIZER;
 
 ///--------------------------------------
-#pragma mark - Fetch
+/// @name Fetch
 ///--------------------------------------
 
 /**

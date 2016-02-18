@@ -13,13 +13,13 @@
 
 #import "PFMacros.h"
 
-@class BFTask<__covariant BFGenericType>;
+@class BFTask PF_GENERIC(__covariant BFGenericType);
 @class PFObject;
 @class PFOfflineStore;
 @class PFSQLiteDatabase;
 
 ///--------------------------------------
-#pragma mark - Encoders
+/// @name Encoders
 ///--------------------------------------
 
 @interface PFEncoder : NSObject

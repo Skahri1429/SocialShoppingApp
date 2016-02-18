@@ -12,7 +12,7 @@
 @interface PFQueryUtilities : NSObject
 
 ///--------------------------------------
-#pragma mark - Predicate
+/// @name Predicate
 ///--------------------------------------
 
 /**
@@ -21,7 +21,7 @@
 + (NSPredicate *)predicateByNormalizingPredicate:(NSPredicate *)predicate;
 
 ///--------------------------------------
-#pragma mark - Regex
+/// @name Regex
 ///--------------------------------------
 
 /**
@@ -34,7 +34,7 @@
 + (NSString *)regexStringForString:(NSString *)string;
 
 ///--------------------------------------
-#pragma mark - Errors
+/// @name Errors
 ///--------------------------------------
 
 + (NSError *)objectNotFoundError;

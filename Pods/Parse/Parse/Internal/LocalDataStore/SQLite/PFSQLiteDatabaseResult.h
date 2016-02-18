@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)close;
 
 ///--------------------------------------
-#pragma mark - Get Column Value
+/// @name Get Column Value
 ///--------------------------------------
 
 - (int)intForColumn:(NSString *)columnName;

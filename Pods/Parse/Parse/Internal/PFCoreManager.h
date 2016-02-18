@@ -40,7 +40,6 @@ PFPersistenceControllerProvider>
 
 @interface PFCoreManager : NSObject
 <PFLocationManagerProvider,
-PFDefaultACLControllerProvider,
 PFObjectControllerProvider,
 PFObjectBatchController,
 PFObjectFilePersistenceControllerProvider,
@@ -64,18 +63,16 @@ PFUserControllerProvider
 @property (null_resettable, nonatomic, strong) PFSessionController *sessionController;
 
 ///--------------------------------------
-#pragma mark - Init
+/// @name Init
 ///--------------------------------------
 
 - (instancetype)init NS_UNAVAILABLE;
-+ (instancetype)new NS_UNAVAILABLE;
-
 - (instancetype)initWithDataSource:(id<PFCoreManagerDataSource>)dataSource NS_DESIGNATED_INITIALIZER;
 
 + (instancetype)managerWithDataSource:(id<PFCoreManagerDataSource>)dataSource;
 
 ///--------------------------------------
-#pragma mark - ObjectFilePersistenceController
+/// @name ObjectFilePersistenceController
 ///--------------------------------------
 
 - (void)unloadObjectFilePersistenceController;

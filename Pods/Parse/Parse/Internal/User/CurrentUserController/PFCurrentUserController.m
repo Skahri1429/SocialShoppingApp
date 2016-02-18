@@ -41,6 +41,10 @@
 #pragma mark - Init
 ///--------------------------------------
 
+- (instancetype)init {
+    PFNotDesignatedInitializer();
+}
+
 - (instancetype)initWithStorageType:(PFCurrentObjectStorageType)storageType
                    commonDataSource:(id<PFKeychainStoreProvider>)commonDataSource
                      coreDataSource:(id<PFObjectFilePersistenceControllerProvider>)coreDataSource {
@@ -116,9 +120,9 @@
         return [[[[self _loadCurrentUserFromDiskAsync] continueWithSuccessBlock:^id(BFTask *task) {
             PFUser *user = task.result;
             // If the object was not yet saved, but is already linked with AnonymousUtils - it means it is lazy.
-            // So mark it's state as `lazy` and make it `dirty`
+            // So mark it's state as `isLazy` and make it `dirty`
             if (!user.objectId && [PFAnonymousUtils isLinkedWithUser:user]) {
-                user._lazy = YES;
+                user.isLazy = YES;
                 [user _setDirty:YES];
             }
             return user;
@@ -154,7 +158,7 @@
         }
         return [[task continueWithBlock:^id(BFTask *task) {
             @synchronized (user.lock) {
-                user._current = YES;
+                [user setIsCurrentUser:YES];
                 [user synchronizeAllAuthData];
             }
             return [self _saveCurrentUserToDiskAsync:user];
@@ -219,9 +223,9 @@
         // Silence the warning if we are loading from LDS
         task = [[query findObjectsInBackground] continueWithSuccessBlock:^id(BFTask *task) {
             NSArray *results = task.result;
-            if (results.count == 1) {
+            if ([results count] == 1) {
                 return results.firstObject;
-            } else if (results.count != 0) {
+            } else if ([results count] != 0) {
                 return [[PFObject unpinAllObjectsInBackgroundWithName:PFUserCurrentUserPinName] continueWithSuccessResult:nil];
             }
 
@@ -242,7 +246,7 @@
     }
     return [task continueWithSuccessBlock:^id(BFTask *task) {
         PFUser *user = task.result;
-        user._current = YES;
+        [user setIsCurrentUser:YES];
         return [[self _loadSensitiveUserDataAsync:user
                          fromKeychainItemWithName:PFUserCurrentUserKeychainItemName] continueWithSuccessResult:user];
     }];
@@ -304,7 +308,7 @@
             if (user.sessionToken) {
                 userData[PFUserSessionTokenRESTKey] = [user.sessionToken copy];
             }
-            if (user.authData.count) {
+            if ([user.authData count]) {
                 userData[PFUserAuthDataRESTKey] = [user.authData copy];
             }
         }

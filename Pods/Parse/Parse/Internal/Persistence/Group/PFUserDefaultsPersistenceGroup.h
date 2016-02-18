@@ -17,7 +17,7 @@
 @property (nonatomic, strong, readonly) NSUserDefaults *userDefaults;
 
 ///--------------------------------------
-#pragma mark - Init
+/// @name Init
 ///--------------------------------------
 
 - (instancetype)init NS_UNAVAILABLE;

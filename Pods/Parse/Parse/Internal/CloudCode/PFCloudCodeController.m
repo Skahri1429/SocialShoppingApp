@@ -22,7 +22,11 @@
 
 ///--------------------------------------
 #pragma mark - Init
-///--------------------------------------s
+///--------------------------------------
+
+- (instancetype)init {
+    PFNotDesignatedInitializer();
+}
 
 - (instancetype)initWithDataSource:(id<PFCommandRunnerProvider>)dataSource {
     self = [super init];

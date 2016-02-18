@@ -11,17 +11,17 @@
 
 #import <Parse/PFConstants.h>
 
-@class BFTask<__covariant BFGenericType>;
+@class BFTask PF_GENERIC(id);
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol PFPersistenceGroup <NSObject>
 
 ///--------------------------------------
-#pragma mark - Data
+/// @name Data
 ///--------------------------------------
 
-- (BFTask<NSData *> *)getDataAsyncForKey:(NSString *)key;
+- (BFTask PF_GENERIC(NSData *)*)getDataAsyncForKey:(NSString *)key;
 
 - (BFTask *)setDataAsync:(NSData *)data forKey:(NSString *)key;
 - (BFTask *)removeDataAsyncForKey:(NSString *)key;
@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BFTask *)removeAllDataAsync;
 
 ///--------------------------------------
-#pragma mark - Access
+/// @name Access
 ///--------------------------------------
 
 - (BFTask *)beginLockedContentAccessAsyncToDataForKey:(NSString *)key;

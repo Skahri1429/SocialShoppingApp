@@ -26,7 +26,7 @@ PF_TV_UNAVAILABLE PF_WATCH_UNAVAILABLE @interface PFMutablePushState : PFPushSta
 @property (nullable, nonatomic, copy, readwrite) NSDictionary *payload;
 
 ///--------------------------------------
-#pragma mark - Payload
+/// @name Payload
 ///--------------------------------------
 
 - (void)setPayloadWithMessage:(nullable NSString *)message;

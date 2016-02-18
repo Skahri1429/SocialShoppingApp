@@ -28,7 +28,6 @@ static NSString *const PFRESTCommandLocalIdEncodingKey = @"localId";
 
 // Increment this when you change the format of cache values.
 static const int PFRESTCommandCacheKeyVersion = 1;
-static const int PFRESTCommandCacheKeyParseAPIVersion = 2;
 
 @implementation PFRESTCommand
 
@@ -87,7 +86,7 @@ static const int PFRESTCommandCacheKeyParseAPIVersion = 2;
     _cacheKey = [NSString stringWithFormat:@"PFRESTCommand.%i.%@.%@.%ld.%@",
                  PFRESTCommandCacheKeyVersion, self.httpMethod, PFMD5HashFromString(self.httpPath),
                  // We use MD5 instead of native hash because it collides too much.
-                 (long)PFRESTCommandCacheKeyParseAPIVersion, PFMD5HashFromString(parametersCacheKey)];
+                 (long)PARSE_API_VERSION, PFMD5HashFromString(parametersCacheKey)];
     return _cacheKey;
 }
 
@@ -150,8 +149,8 @@ static const int PFRESTCommandCacheKeyParseAPIVersion = 2;
         if (objectId) {
             self.localId = nil;
 
-            NSArray *components = self.httpPath.pathComponents;
-            if (components.count == 2) {
+            NSArray *components = [self.httpPath pathComponents];
+            if ([components count] == 2) {
                 self.httpPath = [NSString pathWithComponents:[components arrayByAddingObject:objectId]];
             }
 

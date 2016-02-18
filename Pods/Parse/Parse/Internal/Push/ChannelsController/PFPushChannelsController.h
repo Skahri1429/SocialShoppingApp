@@ -16,7 +16,7 @@
 PF_TV_UNAVAILABLE_WARNING
 PF_WATCH_UNAVAILABLE_WARNING
 
-@class BFTask<__covariant BFGenericType>;
+@class BFTask PF_GENERIC(__covariant BFGenericType);
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,23 +25,21 @@ PF_TV_UNAVAILABLE PF_WATCH_UNAVAILABLE @interface PFPushChannelsController : NSO
 @property (nonatomic, weak, readonly) id<PFCurrentInstallationControllerProvider> dataSource;
 
 ///--------------------------------------
-#pragma mark - Init
+/// @name Init
 ///--------------------------------------
 
 - (instancetype)init NS_UNAVAILABLE;
-+ (instancetype)new NS_UNAVAILABLE;
-
 - (instancetype)initWithDataSource:(id<PFCurrentInstallationControllerProvider>)dataSource NS_DESIGNATED_INITIALIZER;
 + (instancetype)controllerWithDataSource:(id<PFCurrentInstallationControllerProvider>)dataSource;
 
 ///--------------------------------------
-#pragma mark - Get
+/// @name Get
 ///--------------------------------------
 
-- (BFTask<NSSet<NSString *> *>*)getSubscribedChannelsAsync;
+- (BFTask PF_GENERIC(NSSet<NSString *> *)*)getSubscribedChannelsAsync;
 
 ///--------------------------------------
-#pragma mark - Subscribe
+/// @name Subscribe
 ///--------------------------------------
 
 - (BFTask *)subscribeToChannelAsyncWithName:(NSString *)name;

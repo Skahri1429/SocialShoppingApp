@@ -18,7 +18,7 @@
 #import "PFMulticastDelegate.h"
 #import "PFObjectControlling.h"
 
-@class BFTask<__covariant BFGenericType>;
+@class BFTask PF_GENERIC(__covariant BFGenericType);
 @class PFCurrentUserController;
 @class PFFieldOperation;
 @class PFJSONCacheItem;
@@ -41,7 +41,7 @@
 @required
 
 ///--------------------------------------
-#pragma mark - State
+/// @name State
 ///--------------------------------------
 
 + (PFObjectState *)_newObjectStateWithParseClassName:(NSString *)className
@@ -51,7 +51,7 @@
 @optional
 
 ///--------------------------------------
-#pragma mark - Before Save
+/// @name Before Save
 ///--------------------------------------
 
 /**
@@ -97,21 +97,22 @@
 
 - (PFObjectEstimatedData *)_estimatedData;
 
-#if PF_TARGET_OS_OSX
+#if PARSE_OSX_ONLY
 // Not available publicly, but available for testing
 
 - (instancetype)refresh;
 - (instancetype)refresh:(NSError **)error;
 - (void)refreshInBackgroundWithBlock:(PFObjectResultBlock)block;
+- (void)refreshInBackgroundWithTarget:(id)target selector:(SEL)selector;
 
 #endif
 
 ///--------------------------------------
-#pragma mark - Validation
+/// @name Validation
 ///--------------------------------------
 
-- (BFTask<PFVoid> *)_validateFetchAsync NS_REQUIRES_SUPER;
-- (BFTask<PFVoid> *)_validateDeleteAsync NS_REQUIRES_SUPER;
+- (BFTask PF_GENERIC(PFVoid) *)_validateFetchAsync NS_REQUIRES_SUPER;
+- (BFTask PF_GENERIC(PFVoid) *)_validateDeleteAsync NS_REQUIRES_SUPER;
 
 /**
  Validate the save eventually operation with the current state.
@@ -119,10 +120,10 @@
 
  @return Task that encapsulates the validation.
  */
-- (BFTask<PFVoid> *)_validateSaveEventuallyAsync NS_REQUIRES_SUPER;
+- (BFTask PF_GENERIC(PFVoid) *)_validateSaveEventuallyAsync NS_REQUIRES_SUPER;
 
 ///--------------------------------------
-#pragma mark - Pin
+/// @name Pin
 ///--------------------------------------
 - (BFTask *)_pinInBackgroundWithName:(NSString *)name includeChildren:(BOOL)includeChildren;
 + (BFTask *)_pinAllInBackground:(NSArray *)objects withName:(NSString *)name includeChildren:(BOOL)includeChildren;

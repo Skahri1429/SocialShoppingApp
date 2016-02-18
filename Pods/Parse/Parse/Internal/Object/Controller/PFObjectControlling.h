@@ -13,7 +13,7 @@
 
 #import "PFMacros.h"
 
-@class BFTask<__covariant BFGenericType>;
+@class BFTask PF_GENERIC(__covariant BFGenericType);
 @class PFObject;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol PFObjectControlling <NSObject>
 
 ///--------------------------------------
-#pragma mark - Fetch
+/// @name Fetch
 ///--------------------------------------
 
 /**
@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BFTask *)processFetchResultAsync:(NSDictionary *)result forObject:(PFObject *)object;
 
 ///--------------------------------------
-#pragma mark - Delete
+/// @name Delete
 ///--------------------------------------
 
 /**

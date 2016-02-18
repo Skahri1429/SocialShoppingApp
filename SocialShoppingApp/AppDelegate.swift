@@ -20,7 +20,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Parse.setApplicationId("OnOQxcQxYNKZcczyST4KKsDE5HQj8uUccoWLy1xj", clientKey: "nBSvW6bHqnlKDx7Aom21UolA3Gy2zZH1gnz294oL")
         
-        PFUser.logInWithUsername("test", password: "test")
+        do {
+            try PFUser.logInWithUsername("test", password: "test")
+        } catch {
+            print("test login failed")
+        }
         
         if let currentUser = PFUser.currentUser() {
             print("\(currentUser.username!) logged in successfully")

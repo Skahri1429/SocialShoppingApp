@@ -13,32 +13,30 @@
 
 #import <Parse/PFConstants.h>
 
-@class BFTask<__covariant BFGenericType>;
+@class BFTask PF_GENERIC(BFGenericType);
 
 @interface PFInstallationIdentifierStore : NSObject
 
 @property (nonatomic, weak, readonly) id<PFPersistenceControllerProvider> dataSource;
 
 ///--------------------------------------
-#pragma mark - Init
+/// @name Init
 ///--------------------------------------
 
 - (instancetype)init NS_UNAVAILABLE;
-+ (instancetype)new NS_UNAVAILABLE;
-
 - (instancetype)initWithDataSource:(id<PFPersistenceControllerProvider>)dataSource NS_DESIGNATED_INITIALIZER;
 
 ///--------------------------------------
-#pragma mark - Accessors
+/// @name Accessors
 ///--------------------------------------
 
 /**
  Returns a cached installationId or creates a new one, saves it to disk and returns it.
  */
-- (BFTask<NSString *> *)getInstallationIdentifierAsync;
+- (BFTask PF_GENERIC(NSString *)*)getInstallationIdentifierAsync;
 
 ///--------------------------------------
-#pragma mark - Clear
+/// @name Clear
 ///--------------------------------------
 
 /**

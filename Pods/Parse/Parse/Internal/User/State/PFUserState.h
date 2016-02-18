@@ -21,7 +21,7 @@ typedef void(^PFUserStateMutationBlock)(PFMutableUserState *state);
 @property (nonatomic, assign, readonly) BOOL isNew;
 
 ///--------------------------------------
-#pragma mark - Init
+/// @name Init
 ///--------------------------------------
 
 - (instancetype)initWithState:(PFUserState *)state;
@@ -29,7 +29,7 @@ typedef void(^PFUserStateMutationBlock)(PFMutableUserState *state);
 + (instancetype)stateWithState:(PFUserState *)state;
 
 ///--------------------------------------
-#pragma mark - Mutating
+/// @name Mutating
 ///--------------------------------------
 
 - (PFUserState *)copyByMutatingWithBlock:(PFUserStateMutationBlock)block;

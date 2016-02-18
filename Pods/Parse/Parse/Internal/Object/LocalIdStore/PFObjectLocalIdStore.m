@@ -15,6 +15,7 @@
 #import "PFInternalUtils.h"
 #import "PFJSONSerialization.h"
 #import "PFLogging.h"
+#import "Parse_Private.h"
 
 static NSString *const _PFObjectLocalIdStoreDiskFolderPath = @"LocalId";
 
@@ -81,6 +82,10 @@ static NSString *const _PFObjectLocalIdStoreDiskFolderPath = @"LocalId";
 
 @implementation PFObjectLocalIdStore
 
+- (instancetype)init {
+    PFNotDesignatedInitializer();
+}
+
 /**
  * Creates a new LocalIdManager with default options.
  */
@@ -94,7 +99,7 @@ static NSString *const _PFObjectLocalIdStoreDiskFolderPath = @"LocalId";
     _inMemoryCache = [NSMutableDictionary dictionary];
 
     // Construct the path to the disk storage directory.
-    _diskPath = [dataSource.fileManager parseDataItemPathForPathComponent:_PFObjectLocalIdStoreDiskFolderPath];
+    _diskPath = [[Parse _currentManager].fileManager parseDataItemPathForPathComponent:_PFObjectLocalIdStoreDiskFolderPath];
 
     NSError *error = nil;
     [[PFFileManager createDirectoryIfNeededAsyncAtPath:_diskPath] waitForResult:&error withMainThreadWarning:NO];
@@ -117,13 +122,13 @@ static NSString *const _PFObjectLocalIdStoreDiskFolderPath = @"LocalId";
  * Returns Yes if localId has the right basic format for a local id.
  */
 + (BOOL)isLocalId:(NSString *)localId {
-    if (localId.length != 22U) {
+    if ([localId length] != 22U) {
         return NO;
     }
     if (![localId hasPrefix:@"local_"]) {
         return NO;
     }
-    for (int i = 6; i < localId.length; ++i) {
+    for (int i = 6; i < [localId length]; ++i) {
         if (!ishexnumber([localId characterAtIndex:i])) {
             return NO;
         }
@@ -235,7 +240,7 @@ static NSString *const _PFObjectLocalIdStoreDiskFolderPath = @"LocalId";
             entry.objectId = objectId;
             [self putMapEntry:entry forLocalId:localId];
         }
-        _inMemoryCache[localId] = objectId;
+        [_inMemoryCache setObject:objectId forKey:localId];
     }
 }
 
@@ -262,7 +267,7 @@ static NSString *const _PFObjectLocalIdStoreDiskFolderPath = @"LocalId";
     @synchronized (_lock) {
         [self clearInMemoryCache];
 
-        BOOL empty = ([[NSFileManager defaultManager] enumeratorAtPath:_diskPath].allObjects.count == 0);
+        BOOL empty = ([[[[NSFileManager defaultManager] enumeratorAtPath:_diskPath] allObjects] count] == 0);
 
         [[NSFileManager defaultManager] removeItemAtPath:_diskPath error:nil];
 

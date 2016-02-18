@@ -24,7 +24,7 @@ extern NSString *const PFPinKeyObjects;
 @property (nonatomic, strong) NSMutableArray *objects;
 
 ///--------------------------------------
-#pragma mark - Init
+/// @name Init
 ///--------------------------------------
 
 - (instancetype)initWithName:(NSString *)name;

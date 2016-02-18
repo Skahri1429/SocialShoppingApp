@@ -34,6 +34,10 @@
 #pragma mark - Init
 ///--------------------------------------
 
+- (instancetype)init {
+    PFNotDesignatedInitializer();
+}
+
 - (instancetype)initWithDataSource:(id<PFPersistenceControllerProvider, PFCommandRunnerProvider>)dataSource {
     self = [super init];
     if (!self) return nil;

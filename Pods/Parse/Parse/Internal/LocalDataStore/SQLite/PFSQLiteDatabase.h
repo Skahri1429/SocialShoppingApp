@@ -13,11 +13,11 @@
 
 #import "PFMacros.h"
 
-@class BFTask<__covariant BFGenericType>;
+@class BFTask PF_GENERIC(__covariant BFGenericType);
 @class PFFileManager;
 @class PFSQLiteDatabaseResult;
 
-typedef id _Nullable(^PFSQLiteDatabaseQueryBlock)(PFSQLiteDatabaseResult *_Nonnull result);
+typedef id __nullable(^PFSQLiteDatabaseQueryBlock)(PFSQLiteDatabaseResult *__nonnull result);
 
 /**
  Argument count given in executeSQLAsync or executeQueryAsync is invalid.
@@ -44,19 +44,19 @@ NS_ASSUME_NONNULL_BEGIN
 @interface PFSQLiteDatabase : NSObject
 
 ///--------------------------------------
-#pragma mark - Init
+/// @name Init
 ///--------------------------------------
 
 - (instancetype)initWithPath:(NSString *)path;
 
 ///--------------------------------------
-#pragma mark - Database Creation
+/// @name Database Creation
 ///--------------------------------------
 
 + (instancetype)databaseWithPath:(NSString *)path;
 
 ///--------------------------------------
-#pragma mark - Connection
+/// @name Connection
 ///--------------------------------------
 
 /**
@@ -75,7 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BFTask *)closeAsync;
 
 ///--------------------------------------
-#pragma mark - Transaction
+/// @name Transaction
 ///--------------------------------------
 
 /**
@@ -94,7 +94,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BFTask *)rollbackAsync;
 
 ///--------------------------------------
-#pragma mark - Query Methods
+/// @name Query Methods
 ///--------------------------------------
 
 /**

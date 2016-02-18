@@ -31,12 +31,10 @@ PF_TV_UNAVAILABLE PF_WATCH_UNAVAILABLE @interface PFPushManager : NSObject
 @property (null_resettable, nonatomic, strong) PFPushChannelsController *channelsController;
 
 ///--------------------------------------
-#pragma mark - Init
+/// @name Init
 ///--------------------------------------
 
 - (instancetype)init NS_UNAVAILABLE;
-+ (instancetype)new NS_UNAVAILABLE;
-
 - (instancetype)initWithCommonDataSource:(id<PFCommandRunnerProvider>)commonDataSource
                           coreDataSource:(id<PFCurrentInstallationControllerProvider>)coreDataSource NS_DESIGNATED_INITIALIZER;
 

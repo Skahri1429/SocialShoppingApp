@@ -17,13 +17,13 @@ NS_ASSUME_NONNULL_BEGIN
 @interface PFFieldOperationDecoder : NSObject
 
 ///--------------------------------------
-#pragma mark - Init
+/// @name Init
 ///--------------------------------------
 
 + (instancetype)defaultDecoder;
 
 ///--------------------------------------
-#pragma mark - Decoding
+/// @name Decoding
 ///--------------------------------------
 
 /**

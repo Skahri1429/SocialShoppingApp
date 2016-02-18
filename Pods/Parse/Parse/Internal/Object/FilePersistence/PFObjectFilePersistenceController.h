@@ -14,7 +14,7 @@
 #import "PFDataProvider.h"
 #import "PFMacros.h"
 
-@class BFTask<__covariant BFGenericType>;
+@class BFTask PF_GENERIC(__covariant BFGenericType);
 @class PFObject;
 
 @interface PFObjectFilePersistenceController : NSObject
@@ -22,17 +22,15 @@
 @property (nonatomic, weak, readonly) id<PFPersistenceControllerProvider> dataSource;
 
 ///--------------------------------------
-#pragma mark - Init
+/// @name Init
 ///--------------------------------------
 
 - (instancetype)init NS_UNAVAILABLE;
-+ (instancetype)new NS_UNAVAILABLE;
-
 - (instancetype)initWithDataSource:(id<PFPersistenceControllerProvider>)dataSource NS_DESIGNATED_INITIALIZER;
 + (instancetype)controllerWithDataSource:(id<PFPersistenceControllerProvider>)dataSource;
 
 ///--------------------------------------
-#pragma mark - Objects
+/// @name Objects
 ///--------------------------------------
 
 /**
@@ -42,7 +40,7 @@
 
  @return `BFTask` with `PFObject` or `nil` result.
  */
-- (BFTask<PFObject *> *)loadPersistentObjectAsyncForKey:(NSString *)key;
+- (BFTask PF_GENERIC(PFObject *)*)loadPersistentObjectAsyncForKey:(NSString *)key;
 
 /**
  Saves a given object to a file with name.

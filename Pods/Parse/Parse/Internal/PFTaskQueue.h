@@ -11,7 +11,7 @@
 
 #import <Parse/PFConstants.h>
 
-@class BFTask<__covariant BFGenericType>;
+@class BFTask PF_GENERIC(__covariant BFGenericType);
 
 @interface PFTaskQueue : NSObject
 

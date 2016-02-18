@@ -22,8 +22,6 @@ extern NSString *const PFKeychainStoreDefaultService;
 @interface PFKeychainStore : NSObject
 
 - (instancetype)init NS_UNAVAILABLE;
-+ (instancetype)new NS_UNAVAILABLE;
-
 - (instancetype)initWithService:(NSString *)service NS_DESIGNATED_INITIALIZER;
 
 - (nullable id)objectForKey:(NSString *)key;

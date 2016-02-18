@@ -2,7 +2,7 @@ platform :ios, '9.0'
 use_frameworks!
 
 target 'SocialShoppingApp' do
-pod 'Parse'
+pod 'Parse', '~>1.11.0'
 pod 'ParseUI'
 pod 'FBSDKCoreKit'
 pod 'ParseFacebookUtilsV4'

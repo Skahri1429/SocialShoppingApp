@@ -27,28 +27,31 @@
 #pragma mark - Init
 ///--------------------------------------
 
-- (instancetype)initWithDataSource:(id<PFInstallationIdentifierStoreProvider>)dataSource serverURL:(NSURL *)serverURL {
+- (instancetype)init {
+    PFNotDesignatedInitializer();
+}
+
+- (instancetype)initWithDataSource:(id<PFInstallationIdentifierStoreProvider>)dataSource {
     self = [super init];
     if (!self) return nil;
 
     _dataSource = dataSource;
-    _serverURL = serverURL;
 
     return self;
 }
 
-+ (instancetype)constructorWithDataSource:(id<PFInstallationIdentifierStoreProvider>)dataSource serverURL:(NSURL *)serverURL {
-    return [[self alloc] initWithDataSource:dataSource serverURL:serverURL];
++ (instancetype)constructorWithDataSource:(id<PFInstallationIdentifierStoreProvider>)dataSource {
+    return [[self alloc] initWithDataSource:dataSource];
 }
 
 ///--------------------------------------
 #pragma mark - Data
 ///--------------------------------------
 
-- (BFTask<NSURLRequest *> *)getDataURLRequestAsyncForCommand:(PFRESTCommand *)command {
-    return (BFTask *)[[self _getURLRequestHeadersAsyncForCommand:command] continueWithSuccessBlock:^id(BFTask<NSDictionary *> *task) {
-        NSURL *url = [PFURLConstructor URLFromAbsoluteString:self.serverURL.absoluteString
-                                                        path:command.httpPath
+- (BFTask PF_GENERIC(NSURLRequest *)*)getDataURLRequestAsyncForCommand:(PFRESTCommand *)command {
+    return (BFTask *)[[self _getURLRequestHeadersAsyncForCommand:command] continueWithSuccessBlock:^id(BFTask PF_GENERIC(NSDictionary *)*task) {
+        NSURL *url = [PFURLConstructor URLFromAbsoluteString:[PFInternalUtils parseServerURLString]
+                                                        path:[NSString stringWithFormat:@"/1/%@", command.httpPath]
                                                        query:nil];
         NSDictionary *headers = task.result;
 
@@ -85,26 +88,19 @@
 #pragma mark - File
 ///--------------------------------------
 
-- (BFTask<NSURLRequest *> *)getFileUploadURLRequestAsyncForCommand:(PFRESTCommand *)command
-                                                   withContentType:(NSString *)contentType
-                                             contentSourceFilePath:(NSString *)contentFilePath {
-    return [[self getDataURLRequestAsyncForCommand:command] continueWithSuccessBlock:^id(BFTask<NSURLRequest *> *task) {
+- (BFTask PF_GENERIC(NSURLRequest *)*)getFileUploadURLRequestAsyncForCommand:(PFRESTCommand *)command
+                                                             withContentType:(NSString *)contentType
+                                                       contentSourceFilePath:(NSString *)contentFilePath {
+    return [[self getDataURLRequestAsyncForCommand:command] continueWithSuccessBlock:^id(BFTask PF_GENERIC(NSURLRequest *)*task) {
         NSMutableURLRequest *request = [task.result mutableCopy];
 
         if (contentType) {
             [request setValue:contentType forHTTPHeaderField:PFHTTPRequestHeaderNameContentType];
         }
 
-        NSURL *fileURL = [NSURL fileURLWithPath:contentFilePath];
-        NSNumber *fileSize = nil;
-        NSError *error = nil;
-        [fileURL getResourceValue:&fileSize forKey:NSURLFileSizeKey error:&error];
-        if (error) {
-            return [BFTask taskWithError:error];
-        }
-        if (fileSize) {
-            [request setValue:fileSize.stringValue forHTTPHeaderField:PFHTTPRequestHeaderNameContentLength];
-        }
+        //TODO (nlutsenko): Check for error here.
+        NSNumber *fileSize = [PFInternalUtils fileSizeOfFileAtPath:contentFilePath error:nil];
+        [request setValue:[fileSize stringValue] forHTTPHeaderField:PFHTTPRequestHeaderNameContentLength];
 
         return request;
     }];
@@ -148,14 +144,14 @@
     return [mutableHeaders copy];
 }
 
-- (BFTask<NSDictionary *> *)_getURLRequestHeadersAsyncForCommand:(PFRESTCommand *)command {
+- (BFTask PF_GENERIC(NSDictionary *)*)_getURLRequestHeadersAsyncForCommand:(PFRESTCommand *)command {
     return [BFTask taskFromExecutor:[BFExecutor defaultExecutor] withBlock:^id {
         NSMutableDictionary *headers = [NSMutableDictionary dictionary];
         [headers addEntriesFromDictionary:command.additionalRequestHeaders];
         if (command.sessionToken) {
             headers[PFCommandHeaderNameSessionToken] = command.sessionToken;
         }
-        return [[self.dataSource.installationIdentifierStore getInstallationIdentifierAsync] continueWithSuccessBlock:^id(BFTask <NSString *>*task) {
+        return [[self.dataSource.installationIdentifierStore getInstallationIdentifierAsync] continueWithSuccessBlock:^id(BFTask PF_GENERIC(NSString *)*task) {
             headers[PFCommandHeaderNameInstallationId] = task.result;
             return [headers copy];
         }];
