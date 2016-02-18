@@ -27,6 +27,7 @@
         <!--Launch View Controller-->
         <scene sceneID="Pch-TI-lgf">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lyv-Xv-K6Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="LPg-W4-veP" customClass="LaunchViewController" customModule="SocialShoppingApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="A0A-Ox-oQu"/>
@@ -41,14 +42,13 @@
                         <segue destination="1Pb-OZ-tMY" kind="show" identifier="MapSegue" id="gfF-bC-n3Y"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lyv-Xv-K6Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-400" y="133"/>
         </scene>
         <!--Start View Controller-->
         <scene sceneID="WYx-hd-6fi">
             <objects>
-                <viewController id="1Pb-OZ-tMY" customClass="StartViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StartVC" id="1Pb-OZ-tMY" customClass="StartViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uCD-hN-uRq"/>
                         <viewControllerLayoutGuide type="bottom" id="VFj-HT-HdT"/>
