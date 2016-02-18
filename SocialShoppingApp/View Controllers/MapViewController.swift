@@ -7,11 +7,30 @@
 //
 
 import UIKit
+import MapKit
 
 class MapViewController: UIViewController {
-
+    
+    var userLongLat: CLLocation? = CLLocation(latitude: 21.282778, longitude: -157.829444)
+    // MARK: outlets
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var dropoffTextField: UITextField!
+    @IBOutlet weak var mapView: MKMapView!
+        
+    // MARK: map functions
+    let regionRadius: CLLocationDistance = 5000
+    
+    func centerMapOnLocation(location: CLLocation) {
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
+            regionRadius * 2.0, regionRadius * 2.0)
+        mapView.setRegion(coordinateRegion, animated: true)
+    }
+    
+    // MARK: system functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        centerMapOnLocation(userLongLat!)
 
         // Do any additional setup after loading the view.
     }

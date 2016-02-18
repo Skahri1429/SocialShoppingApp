@@ -17,6 +17,7 @@
 		284B8A231C754EB300E0BFEC /* ShoppingListModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284B8A221C754EB300E0BFEC /* ShoppingListModalViewController.swift */; };
 		284B8A251C754EE500E0BFEC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284B8A241C754EE500E0BFEC /* SettingsViewController.swift */; };
 		284B8A271C754EFF00E0BFEC /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284B8A261C754EFF00E0BFEC /* UserProfileViewController.swift */; };
+		28F3D28C1C75B59000C2DC55 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F3D28B1C75B59000C2DC55 /* LaunchViewController.swift */; };
 		BC6AD80CAA465BDACE6B82B7 /* Pods_SocialShoppingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E78047B29CAB6E68C439370B /* Pods_SocialShoppingApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +55,7 @@
 		284B8A221C754EB300E0BFEC /* ShoppingListModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShoppingListModalViewController.swift; path = ../ShoppingListModalViewController.swift; sourceTree = "<group>"; };
 		284B8A241C754EE500E0BFEC /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsViewController.swift; path = ../SettingsViewController.swift; sourceTree = "<group>"; };
 		284B8A261C754EFF00E0BFEC /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserProfileViewController.swift; path = ../UserProfileViewController.swift; sourceTree = "<group>"; };
+		28F3D28B1C75B59000C2DC55 /* LaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		4C14452F4C55A24CC2013A83 /* Pods-SocialShoppingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialShoppingApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SocialShoppingApp/Pods-SocialShoppingApp.debug.xcconfig"; sourceTree = "<group>"; };
 		B05F79AAF877D832AB404C73 /* Pods-SocialShoppingApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialShoppingApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-SocialShoppingApp/Pods-SocialShoppingApp.release.xcconfig"; sourceTree = "<group>"; };
 		E78047B29CAB6E68C439370B /* Pods_SocialShoppingApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SocialShoppingApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -110,12 +112,12 @@
 		284634C01C6AE2F8007B6CE7 /* SocialShoppingApp */ = {
 			isa = PBXGroup;
 			children = (
-				284B8A1F1C754E3100E0BFEC /* View Controllers */,
 				284634C11C6AE2F8007B6CE7 /* AppDelegate.swift */,
 				284634C51C6AE2F8007B6CE7 /* Main.storyboard */,
 				284634C81C6AE2F8007B6CE7 /* Assets.xcassets */,
 				284634CA1C6AE2F8007B6CE7 /* LaunchScreen.storyboard */,
 				284634CD1C6AE2F8007B6CE7 /* Info.plist */,
+				284B8A1F1C754E3100E0BFEC /* View Controllers */,
 			);
 			path = SocialShoppingApp;
 			sourceTree = "<group>";
@@ -141,10 +143,11 @@
 		284B8A1F1C754E3100E0BFEC /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				284B8A201C754E8400E0BFEC /* MapViewController.swift */,
+				284B8A221C754EB300E0BFEC /* ShoppingListModalViewController.swift */,
 				284B8A261C754EFF00E0BFEC /* UserProfileViewController.swift */,
 				284B8A241C754EE500E0BFEC /* SettingsViewController.swift */,
-				284B8A221C754EB300E0BFEC /* ShoppingListModalViewController.swift */,
-				284B8A201C754E8400E0BFEC /* MapViewController.swift */,
+				28F3D28B1C75B59000C2DC55 /* LaunchViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -349,6 +352,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				284B8A231C754EB300E0BFEC /* ShoppingListModalViewController.swift in Sources */,
+				28F3D28C1C75B59000C2DC55 /* LaunchViewController.swift in Sources */,
 				284B8A271C754EFF00E0BFEC /* UserProfileViewController.swift in Sources */,
 				284634C21C6AE2F8007B6CE7 /* AppDelegate.swift in Sources */,
 				284B8A211C754E8400E0BFEC /* MapViewController.swift in Sources */,

@@ -9,15 +9,14 @@
 import UIKit
 import Parse
 
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        
         Parse.setApplicationId("OnOQxcQxYNKZcczyST4KKsDE5HQj8uUccoWLy1xj", clientKey: "nBSvW6bHqnlKDx7Aom21UolA3Gy2zZH1gnz294oL")
         
         do {
