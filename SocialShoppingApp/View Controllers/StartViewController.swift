@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController {
+class StartViewController: UIViewController {
     
     var userLongLat: CLLocation? = CLLocation(latitude: 21.282778, longitude: -157.829444)
     // MARK: outlets

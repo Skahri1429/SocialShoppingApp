@@ -45,10 +45,10 @@
             </objects>
             <point key="canvasLocation" x="-400" y="133"/>
         </scene>
-        <!--Map View Controller-->
+        <!--Start View Controller-->
         <scene sceneID="WYx-hd-6fi">
             <objects>
-                <viewController id="1Pb-OZ-tMY" customClass="MapViewController" customModule="SocialShoppingApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="1Pb-OZ-tMY" customClass="StartViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uCD-hN-uRq"/>
                         <viewControllerLayoutGuide type="bottom" id="VFj-HT-HdT"/>
@@ -269,8 +269,8 @@
                                 <exclude reference="fqp-Bz-04q"/>
                                 <exclude reference="vup-pB-hzZ"/>
                                 <exclude reference="y14-9d-v3Z"/>
-                                <exclude reference="kNC-Rl-s7N"/>
                                 <exclude reference="y4f-mq-yOI"/>
+                                <exclude reference="kNC-Rl-s7N"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -296,10 +296,10 @@
                                 <exclude reference="p6d-ZJ-Qwc"/>
                                 <include reference="vup-pB-hzZ"/>
                                 <include reference="y14-9d-v3Z"/>
-                                <include reference="kNC-Rl-s7N"/>
-                                <exclude reference="lUY-cW-3f1"/>
                                 <exclude reference="vPf-EL-IRt"/>
                                 <include reference="y4f-mq-yOI"/>
+                                <include reference="kNC-Rl-s7N"/>
+                                <exclude reference="lUY-cW-3f1"/>
                             </mask>
                         </variation>
                     </view>

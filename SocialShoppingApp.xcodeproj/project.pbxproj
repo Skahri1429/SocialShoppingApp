@@ -13,7 +13,7 @@
 		284634CC1C6AE2F8007B6CE7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 284634CA1C6AE2F8007B6CE7 /* LaunchScreen.storyboard */; };
 		284634D71C6AE2F8007B6CE7 /* SocialShoppingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284634D61C6AE2F8007B6CE7 /* SocialShoppingAppTests.swift */; };
 		284634E21C6AE2F8007B6CE7 /* SocialShoppingAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284634E11C6AE2F8007B6CE7 /* SocialShoppingAppUITests.swift */; };
-		284B8A211C754E8400E0BFEC /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284B8A201C754E8400E0BFEC /* MapViewController.swift */; };
+		284B8A211C754E8400E0BFEC /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284B8A201C754E8400E0BFEC /* StartViewController.swift */; };
 		284B8A231C754EB300E0BFEC /* ShoppingListModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284B8A221C754EB300E0BFEC /* ShoppingListModalViewController.swift */; };
 		284B8A251C754EE500E0BFEC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284B8A241C754EE500E0BFEC /* SettingsViewController.swift */; };
 		284B8A271C754EFF00E0BFEC /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284B8A261C754EFF00E0BFEC /* UserProfileViewController.swift */; };
@@ -51,7 +51,7 @@
 		284634DD1C6AE2F8007B6CE7 /* SocialShoppingAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SocialShoppingAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		284634E11C6AE2F8007B6CE7 /* SocialShoppingAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialShoppingAppUITests.swift; sourceTree = "<group>"; };
 		284634E31C6AE2F8007B6CE7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		284B8A201C754E8400E0BFEC /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		284B8A201C754E8400E0BFEC /* StartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		284B8A221C754EB300E0BFEC /* ShoppingListModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShoppingListModalViewController.swift; path = ../ShoppingListModalViewController.swift; sourceTree = "<group>"; };
 		284B8A241C754EE500E0BFEC /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsViewController.swift; path = ../SettingsViewController.swift; sourceTree = "<group>"; };
 		284B8A261C754EFF00E0BFEC /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserProfileViewController.swift; path = ../UserProfileViewController.swift; sourceTree = "<group>"; };
@@ -143,7 +143,7 @@
 		284B8A1F1C754E3100E0BFEC /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				284B8A201C754E8400E0BFEC /* MapViewController.swift */,
+				284B8A201C754E8400E0BFEC /* StartViewController.swift */,
 				284B8A221C754EB300E0BFEC /* ShoppingListModalViewController.swift */,
 				284B8A261C754EFF00E0BFEC /* UserProfileViewController.swift */,
 				284B8A241C754EE500E0BFEC /* SettingsViewController.swift */,
@@ -355,7 +355,7 @@
 				28F3D28C1C75B59000C2DC55 /* LaunchViewController.swift in Sources */,
 				284B8A271C754EFF00E0BFEC /* UserProfileViewController.swift in Sources */,
 				284634C21C6AE2F8007B6CE7 /* AppDelegate.swift in Sources */,
-				284B8A211C754E8400E0BFEC /* MapViewController.swift in Sources */,
+				284B8A211C754E8400E0BFEC /* StartViewController.swift in Sources */,
 				284B8A251C754EE500E0BFEC /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
